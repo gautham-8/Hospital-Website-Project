@@ -1,8 +1,9 @@
 import React from 'react';
+import Form from './Appointment/Appointmentform';
 
 function Appointment() {
     return <div>
-        heyy
+        <Form />
     </div>;
 }
 
