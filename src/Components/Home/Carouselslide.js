@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Carousel from 'react-bootstrap/Carousel';
 import imageOne from '../Images/Image1.png'
 // import "react-responsive-carousel/lib/styles/carousel.min.css"; 
-// import { Carousel } from 'react-responsive-carousel';
+// import {Carousel}  from 'react-responsive-carousel';
 
 export default function App() {
 return (
@@ -32,5 +32,18 @@ return (
 		</Carousel.Item>
 	</Carousel>
 	</div>
+	// <div className="carousel-wrapper">
+	// 	<Carousel>
+	// 		<div>
+	// 			<img src="https://cdn.apollohospitals.com/dev-apollohospitals/2021/10/strokeDayTab-scaled.jpg" />
+	// 		</div>
+	// 		<div>
+	// 			<img src="https://cdn.apollohospitals.com/dev-apollohospitals/2021/10/strokeDayTab-scaled.jpg" />
+	// 		</div>
+	// 		<div>
+	// 			<img src="https://cdn.apollohospitals.com/dev-apollohospitals/2021/10/strokeDayTab-scaled.jpg" />
+	// 		</div>
+	// 	</Carousel>
+    // </div>
 );
 }

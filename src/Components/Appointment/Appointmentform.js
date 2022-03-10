@@ -1,6 +1,6 @@
 import React from 'react'
 import {useForm} from 'react-hook-form'
-import '../Appointment/Appointmentform.css'
+import './Appointmentform.css';
 
 function Appointmentform() {
     const {register,handleSubmit,formState:{errors}} = useForm()
@@ -10,9 +10,11 @@ function Appointmentform() {
         window.alert("Successfully registered an apppointment for:\n"+userdata.name+"\n"+userdata.email+"\n"+userdata.mobile);
     }
     return (
-        <div className="row mt-2 mx-auto">
-            <div className="col-11 col-sm-8 col-md-6 col-lg-4 mx-auto">
-                <form onSubmit = {handleSubmit(onFormSubmit)}>
+        <div className="row ">
+            <div className="col-lg-10 col-md-8 mx-auto">
+                <form onSubmit = {handleSubmit(onFormSubmit)} className="form-shadow">
+                <img className="doctor-image mt-2" src="https://thumbs.dreamstime.com/b/group-hospital-doctors-over-health-care-clinic-background-89857953.jpg" />
+                <p className="text-center fonter p-1">Book an appointment with your doctor who is the perfect match for your medical needs.</p>
                     <div>
                         <label htmlFor="name">Patient's name:</label>
                         <input type="text" id="name" className="form-control" {...register("name",{required:true,minLength:3})} />
