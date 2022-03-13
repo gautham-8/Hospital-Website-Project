@@ -18,7 +18,7 @@ function NavbarComponent() {
             <Navbar.Toggle />
             <Navbar.Collapse>
                 <Nav>
-                    <NavLink className="active nav-link" to="/Hospital-Website-Project">Home</NavLink>
+                    <NavLink className="active nav-link" to="/Hospital-Website-Project/">Home</NavLink>
                     <NavLink className="active nav-link" to="/Aboutus">About us</NavLink>
                     <NavLink className="active nav-link" to="/Appointment">Book an appointment</NavLink>
                 </Nav>
