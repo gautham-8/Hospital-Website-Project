@@ -13,7 +13,7 @@ function Appointmentform() {
         <div className="row pb-4">
             <div className="col-lg-10 col-md-8 mx-auto">
                 <form onSubmit = {handleSubmit(onFormSubmit)} className="form-shadow">
-                <img className="doctor-image mt-2" src="https://thumbs.dreamstime.com/b/group-hospital-doctors-over-health-care-clinic-background-89857953.jpg" />
+                <img className="doctor-image mt-2" src="https://thumbs.dreamstime.com/b/group-hospital-doctors-over-health-care-clinic-background-89857953.jpg" alt=""/>
                 <p className="text-center fonter p-1">Book an appointment with your doctor who is the perfect match for your medical needs.</p>
                     <div>
                         <label htmlFor="name">Patient's name:</label>
