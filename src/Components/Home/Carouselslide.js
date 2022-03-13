@@ -1,49 +1,35 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
-import Carousel from 'react-bootstrap/Carousel';
-import imageOne from '../Images/Image1.png'
-// import "react-responsive-carousel/lib/styles/carousel.min.css"; 
-// import {Carousel}  from 'react-responsive-carousel';
+import React from 'react'
+import Carousel from 'react-elastic-carousel'
+import './home.css'
+import './carouselslide.css'
+import Card1 from './Cards/Card1'
+import Card2 from './Cards/Card2'
+import Card3 from './Cards/Card3'
+import Card4 from './Cards/Card4'
+import Card5 from './Cards/Card5'
+import Card6 from './Cards/Card6'
 
-export default function App() {
-return (
-	<div>
-	<Carousel>
-		<Carousel.Item interval={1500}>
-		<img
-			className="d-block w-100"
-            src={imageOne}
-			alt="Image One"
-		/>
-		</Carousel.Item>
-		<Carousel.Item interval={500}>
-		<img
-			className="d-block w-100"
-            src="https://cdn.apollohospitals.com/dev-apollohospitals/2021/09/1920x593.jpg"
-			alt="Image Two"
-		/>
-		</Carousel.Item>
-        <Carousel.Item interval={500}>
-		<img
-			className="d-block w-100"
-            src="https://cdn.apollohospitals.com/dev-apollohospitals/2021/10/strokeDayTab-scaled.jpg"
-			alt="Image Three"
-		/>
-		</Carousel.Item>
-	</Carousel>
-	</div>
-	// <div className="carousel-wrapper">
-	// 	<Carousel>
-	// 		<div>
-	// 			<img src="https://cdn.apollohospitals.com/dev-apollohospitals/2021/10/strokeDayTab-scaled.jpg" />
-	// 		</div>
-	// 		<div>
-	// 			<img src="https://cdn.apollohospitals.com/dev-apollohospitals/2021/10/strokeDayTab-scaled.jpg" />
-	// 		</div>
-	// 		<div>
-	// 			<img src="https://cdn.apollohospitals.com/dev-apollohospitals/2021/10/strokeDayTab-scaled.jpg" />
-	// 		</div>
-	// 	</Carousel>
-    // </div>
-);
+const breakPoints = [
+    { width: 1, itemsToShow: 1},
+    { width: 576, itemsToShow: 2},
+    { width: 992, itemsToShow: 3},
+    { width: 1200, itemsToShow: 4},
+];
+
+function Carouselslide() {
+    return (
+        <div className="pt-4 bg-teal">
+            <p className="display-6 text-light container">Centres of Excellence</p>
+            <Carousel breakPoints={breakPoints} className="">
+                <Card1 />
+                <Card6 />
+                <Card3 />
+                <Card2 />
+                <Card5 />
+                <Card4 />
+            </Carousel>
+        </div>
+    )
 }
+
+export default Carouselslide

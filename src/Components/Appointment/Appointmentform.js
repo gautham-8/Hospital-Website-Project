@@ -10,7 +10,7 @@ function Appointmentform() {
         window.alert("Successfully registered an apppointment for:\n"+userdata.name+"\n"+userdata.email+"\n"+userdata.mobile);
     }
     return (
-        <div className="row ">
+        <div className="row pb-4">
             <div className="col-lg-10 col-md-8 mx-auto">
                 <form onSubmit = {handleSubmit(onFormSubmit)} className="form-shadow">
                 <img className="doctor-image mt-2" src="https://thumbs.dreamstime.com/b/group-hospital-doctors-over-health-care-clinic-background-89857953.jpg" />

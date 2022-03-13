@@ -2,3 +2,12 @@
     font-family: 'Prompt', sans-serif;
     text-align: center;
 }
+
+.head-clr{
+    /* color: rgb(1, 95, 130); */
+    color: rgb(0, 88, 123);
+}
+
+.background-clr{
+    background-color: rgba(249,246,239,255);
+}

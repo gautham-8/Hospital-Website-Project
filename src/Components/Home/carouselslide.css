@@ -1,0 +1,21 @@
+.rec.rec-arrow {
+    background-color: rgb(0, 73, 99);
+    color: white;
+}
+
+.rec.rec-arrow:hover{
+    background-color: rgb(1, 43, 58) !important;
+}
+
+.rec.rec-arrow:after{
+    font-size: 55px;
+    color: red;
+}
+
+.rec.rec-pagination{
+    visibility: hidden;
+}
+
+.bg-teal{
+    background-color: rgb(1, 95, 130);
+}
