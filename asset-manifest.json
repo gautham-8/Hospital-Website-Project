@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Hospital-Website-Project/static/css/main.4bade7a6.css",
-    "main.js": "/Hospital-Website-Project/static/js/main.5e18a95f.js",
+    "main.js": "/Hospital-Website-Project/static/js/main.319a1c25.js",
     "static/js/787.2d4257ef.chunk.js": "/Hospital-Website-Project/static/js/787.2d4257ef.chunk.js",
     "index.html": "/Hospital-Website-Project/index.html",
     "main.4bade7a6.css.map": "/Hospital-Website-Project/static/css/main.4bade7a6.css.map",
-    "main.5e18a95f.js.map": "/Hospital-Website-Project/static/js/main.5e18a95f.js.map",
+    "main.319a1c25.js.map": "/Hospital-Website-Project/static/js/main.319a1c25.js.map",
     "787.2d4257ef.chunk.js.map": "/Hospital-Website-Project/static/js/787.2d4257ef.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4bade7a6.css",
-    "static/js/main.5e18a95f.js"
+    "static/js/main.319a1c25.js"
   ]
 }
