@@ -18,14 +18,14 @@ function NavbarComponent() {
             <Navbar.Toggle />
             <Navbar.Collapse>
                 <Nav>
-                    <NavLink className="active nav-link" to="/">Home</NavLink>
+                    <NavLink className="active nav-link" to="/Hospital-Website-Project">Home</NavLink>
                     <NavLink className="active nav-link" to="/Aboutus">About us</NavLink>
                     <NavLink className="active nav-link" to="/Appointment">Book an appointment</NavLink>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
         <Routes>
-            <Route path='/' element={<Home />} />
+            <Route path='/Hospital-Website-Project' element={<Home />} />
             <Route path='/Aboutus' element={<Aboutus />} />
             <Route path='/Appointment' element={<Appointment />} />
         </Routes>
