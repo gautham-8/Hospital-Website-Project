@@ -2,20 +2,43 @@ import React from 'react';
 import Form from './Appointment/Appointmentform';
 import './Styles/Appointment.css'
 import Footer from './Footer'
+import {Nav} from 'react-bootstrap'
+import {Outlet,NavLink} from 'react-router-dom'
+import {useSelector} from 'react-redux'
+import ViewAppointment from './Appointment/ViewAppointment'
 
 function Appointment() {
-    return <div className="background-clr pt-3">
-        <div className="display-6 text-center appoint-header mb-2 head-clr">
-            Book An Appointment at VJ Hospitals.
+    let { userObj, isError, isLoading, isSuccess, errMsg } = useSelector((state) => state.user);
+    return(
+        <div>
+            {
+                (userObj.isStaff===true || userObj.email==="admin@vj.com")?
+                (
+                <div className="container">
+                    <p className="display-5 head-clr">All appointments</p>
+                    <ViewAppointment />
+                </div>)
+                :(<>
+                    <Nav className="justify-content-center mt-3" defaultActiveKey="/book-appointment">
+                        <Nav.Item>
+                            <Nav.Link to="book-appointment" as={NavLink}>
+                                Book an appointment
+                            </Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link to="view-appointments" as={NavLink}>
+                                My appointments
+                            </Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+                    <div className="mt-3">
+                        <Outlet />
+                    </div>
+                </>)
+            }
+            
         </div>
-        <div className="row mx-auto">
-            <div className="cols col-lg-2"></div>
-            <div className="cols col-lg-8">
-                <Form />
-            </div>
-        </div>
-        <Footer />
-    </div>;
+    );
 }
 
 export default Appointment;

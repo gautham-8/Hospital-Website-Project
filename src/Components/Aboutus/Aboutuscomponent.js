@@ -51,7 +51,7 @@ function Aboutuscomponent() {
       <div className="background-clr pb-4 pt-2">
         <div className="container">
           <p className="display-6 mb-1 head-clr">From the desk of our CEO:</p>
-          <div className="row borderceo">
+          <div className="row">
             <div className="cols col-md-4">
               <img className="img-fluid mb-1 mt-1" src="https://static.vecteezy.com/system/resources/previews/000/524/761/large_2x/vector-person-working-at-desk-in-office.jpg"  alt="" />
             </div>
