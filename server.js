@@ -5,6 +5,7 @@ const mclient=require("mongodb").MongoClient;
 // require("dotenv").config()
 
 const path = require('path');
+const PORT = process.env.PORT || 4000
 
 app.use(exp.static(path.join(__dirname, "./build")));
 
@@ -45,4 +46,4 @@ app.use((error, request, response, next) => {
 });
 
 // let port = process.env.PORT
-app.listen(4000, () => console.log("server listening on port 4000"));
+app.listen(PORT, () => console.log("server listening on port ",PORT));
