@@ -4,6 +4,18 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faDotCircle} from '@fortawesome/free-solid-svg-icons'
 
 function Aboutuscomponent() {
+  const BulletPoints = [
+    "22 Hospitals",
+    "175 Medical centers",
+    "20 Fertility Centers in India and Europe",
+    "8000+ Beds",
+    "6.1 Million Medical Visits",
+    "2 Million Patients Served Per Year",
+    "10 Public-Private Partnerships",
+    "91 Medical Labs",
+    "92 Million Lab Tests Per Year",
+    "10000+ Employees"
+  ]
   return (
     <div className="">
       <div className="background-clr pb-2">
@@ -17,36 +29,13 @@ function Aboutuscomponent() {
       </div>
       <div className="pt-2 container">
         <p className="display-6 mb-1 head-clr">VJ Hospitals in numbers:</p>
-        <div className='mb-1'>
-          <FontAwesomeIcon icon={faDotCircle} size="md"/> 22 Hospitals
-        </div>
-        <div className='mb-1'>
-          <FontAwesomeIcon icon={faDotCircle} size="md"/> 175 Medical centers
-        </div>
-        <div className='mb-1'>
-          <FontAwesomeIcon icon={faDotCircle} size="md"/> 20 Fertility Centers in India and Europe
-        </div>
-        <div className='mb-1'>
-          <FontAwesomeIcon icon={faDotCircle} size="md"/> 8000+ Beds
-        </div>
-        <div className='mb-1'>
-          <FontAwesomeIcon icon={faDotCircle} size="md"/> 6.1 Million Medical Visits
-        </div>
-        <div className='mb-1'>
-          <FontAwesomeIcon icon={faDotCircle} size="md"/> 2 Million Patients Served Per Year
-        </div>
-        <div className='mb-1'>
-          <FontAwesomeIcon icon={faDotCircle} size="md"/> 10 Public-Private Partnerships
-        </div>
-        <div className='mb-1'>
-          <FontAwesomeIcon icon={faDotCircle} size="md"/> 91 Medical Labs
-        </div>
-        <div className='mb-1'>
-          <FontAwesomeIcon icon={faDotCircle} size="md"/> 92 Million Lab Tests Per Year
-        </div>
-        <div className='mb-1'>
-          <FontAwesomeIcon icon={faDotCircle} size="md"/> 10000+ Employees
-        </div>
+        {
+          BulletPoints.map(item=>(
+            <div className='mb-1'>
+              <FontAwesomeIcon icon={faDotCircle} size="md"/> {item}
+            </div>
+          ))
+        }
       </div>
       <div className="background-clr pb-4 pt-2">
         <div className="container">
