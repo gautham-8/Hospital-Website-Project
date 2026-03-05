@@ -1,14 +1,17 @@
 const exp = require("express");
 const app = exp();
 const mclient=require("mongodb").MongoClient;
+const cors = require("cors");
 
-// require("dotenv").config()
+require("dotenv").config();
 
 const path = require('path');
 
+app.use(cors());
+
 app.use(exp.static(path.join(__dirname, "./build")));
 
-const DBurl= "mongodb+srv://sample2022:sample2022@cluster0.6nytb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+const DBurl = process.env.MONGO_URI;
 
 mclient.connect(DBurl)
 .then((client)=>{
@@ -38,11 +41,11 @@ app.use('*',(request, response) => {
 
 
 app.use((request, response, next) => {
-    response.send({ message: `path ${request.url} is invalid` });
+    response.status(404).send({ message: `path ${request.url} is invalid` });
 });
 app.use((error, request, response, next) => {
-    response.send({ message: "Error occurred", reason: `${error.message}` });
+    response.status(500).send({ message: "Error occurred", reason: `${error.message}` });
 });
 
-// let port = process.env.PORT
-app.listen(4000, () => console.log("server listening on port 4000"));
+const port = process.env.PORT || 4000;
+app.listen(port, () => console.log(`server listening on port ${port}`));

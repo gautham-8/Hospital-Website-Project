@@ -21,7 +21,7 @@ function Signup() {
         }
         let userData = Object.assign(user,staffObj);
         console.log(userData)
-        axios.post('http://localhost:4000/user-api/create-user',userData)
+        axios.post('/user-api/create-user', userData)
         .then(response => {
             console.log(response)
         })

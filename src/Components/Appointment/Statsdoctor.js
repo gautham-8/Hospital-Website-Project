@@ -8,9 +8,10 @@ import "../Styles/Appointment.css"
 function Statsdoctor() {
     let [appointmentList,setAppointments]=useState([]);
     
-    let url = `http://localhost:4000/appointment-api/getappointments`;
+    let url = `/appointment-api/getappointments`;
+    const token = localStorage.getItem('token');
     useEffect(()=>{
-        axios.get(url)
+        axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
             console.log(response.data.payload);
             setAppointments(response.data.payload);
@@ -18,7 +19,8 @@ function Statsdoctor() {
         .catch((error) => {
             console.log("error-", error);
         });
-    },[appointmentList])
+    },[])
+
     
     function getTimes(){
         let map = new Map();

@@ -10,29 +10,34 @@ function ViewAppointment() {
   let [appointmentList,setAppointments]=useState([]);
   let { userObj, isError, isLoading, isSuccess, errMsg } = useSelector((state) => state.user);
 
+  const token = localStorage.getItem('token');
+  const authHeader = { headers: { Authorization: `Bearer ${token}` } };
+
   let url;
   if(userObj.email === "admin@vj.com" || userObj.isStaff === true){
-    url = `http://localhost:4000/appointment-api/getappointments`;
+    url = `/appointment-api/getappointments`;
   }
   else{
-    url = `http://localhost:4000/appointment-api/get-my-appointments/${userObj.email}`;
+    url = `/appointment-api/get-my-appointments/${userObj.email}`;
   }
-  useEffect(()=>{
-    axios.get(url)
+  const fetchAppointments = () => {
+    axios.get(url, authHeader)
     .then((response) => {
-      console.log(response.data.payload);
       setAppointments(response.data.payload);
     })
     .catch((error) => {
       console.log("error-", error);
     });
-  },[appointmentList])
-  // console.log(appointmentList)
+  };
+
+  useEffect(()=>{
+    fetchAppointments();
+  },[])
+
   const removeElement = (id) => {
-    // console.log(id);
-    axios.delete(`http://localhost:4000/appointment-api/delete-appointment/${id}`)
-    .then((response) => {
-      setAppointments(response.data.payload);
+    axios.delete(`/appointment-api/delete-appointment/${id}`, authHeader)
+    .then(() => {
+      fetchAppointments();
     })
     .catch((error) => {
       console.log("error-", error);

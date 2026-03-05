@@ -21,7 +21,7 @@ function Appointmentform() {
             phone: userObj.phone
         };
         const userDetails = Object.assign(user,userEmail)
-        axios.post('http://localhost:4000/appointment-api/book-appointment',userDetails)
+        axios.post('/appointment-api/book-appointment', userDetails, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
         .then(response => {
             // console.log(response)
             navigate('/Appointment/view-appointments')

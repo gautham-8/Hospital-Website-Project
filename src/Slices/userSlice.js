@@ -39,23 +39,24 @@ let userSlice=createSlice({
         return state;
     }
     },
-    extraReducers:{
-    [userLogin.pending]:(state,action)=>{
-        state.isLoading=true;
-    },
-    [userLogin.fulfilled]:(state,action)=>{
-        state.userObj=action.payload;
-        state.isLoading=false;
-        state.isError=false;
-        state.isSuccess=true;
-        state.errMsg=''
-    },
-    [userLogin.rejected]:(state,action)=>{
-        state.isError=true;
-        state.isLoading=false;
-        state.isSuccess=false;
-        state.errMsg=action.payload.message;
-    }
+    extraReducers:(builder)=>{
+        builder
+        .addCase(userLogin.pending,(state)=>{
+            state.isLoading=true;
+        })
+        .addCase(userLogin.fulfilled,(state,action)=>{
+            state.userObj=action.payload;
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.errMsg='';
+        })
+        .addCase(userLogin.rejected,(state,action)=>{
+            state.isError=true;
+            state.isLoading=false;
+            state.isSuccess=false;
+            state.errMsg=action.payload.message;
+        })
     }
 })
 
