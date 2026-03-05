@@ -30,7 +30,7 @@ mclient.connect(DBurl)
 
 
 const userApp = require("./APIs/userApi");
-const appointmentApp = require("./APIs/appointmentAPI");
+const appointmentApp = require("./APIs/appointmentApi");
 
 app.use("/user-api", userApp);
 app.use("/appointment-api", appointmentApp);
