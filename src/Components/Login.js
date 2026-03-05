@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import { useForm } from "react-hook-form";
 import {useNavigate} from 'react-router-dom'
 import {useSelector,useDispatch} from 'react-redux';
-import {userLogin} from '../slices/userSlice'
+import {userLogin} from '../Slices/userSlice'
 import Footer from './Footer'
 
 function Login() {
