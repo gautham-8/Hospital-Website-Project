@@ -1,62 +1,77 @@
-import React from 'react'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import { useForm } from "react-hook-form";
-import {useNavigate} from 'react-router-dom'
-import {useSelector,useDispatch} from 'react-redux';
-import {userLogin} from '../Slices/userSlice'
+import React, { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { userLogin } from '../Slices/userSlice'
 import Footer from './Footer'
+import './Styles/forms.css'
 
 function Login() {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
-
-    //get user state from redux
-    let { userObj, isError, isLoading, isSuccess, errMsg } = useSelector((state) => state.user);
-    let dispatch = useDispatch();
-
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { isError, isLoading, isSuccess, errMsg } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isSuccess) navigate('/');
+    }, [isSuccess]);
+
     const onFormSubmit = (userCredentialsObject) => {
-        // console.log("OK OK")
         dispatch(userLogin(userCredentialsObject));
     };
+
     return (
-    <div className="">
-        <div className="card cols col-lg-5 col-md-8 col-10 mx-auto m-5">
-            <div className="container mb-2">
-                <p className="display-6 text-center">Login</p>
-                <Form onSubmit={handleSubmit(onFormSubmit)}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" {...register("email",{required:true})}/>
-                        {errors.email && (<p className="text-danger">*Required field</p>)}
-                    </Form.Group>
+        <div className="auth-page">
+            <div className="auth-card">
+                <div className="auth-header">
+                    <h2 className="auth-title">Welcome back</h2>
+                    <p className="auth-subtitle">Sign in to your account</p>
+                </div>
 
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" {...register("password", { required: true })}/>
-                        {errors.password?.type==='required'&& <p className="text-danger">* Required field</p>}
-                    </Form.Group>
+                {isError && (
+                    <div className="auth-alert">
+                        {errMsg || 'Invalid email or password.'}
+                    </div>
+                )}
 
-                    <Button style={{ backgroundColor: "rgb(1, 95, 130)"}} variant="primary" type="submit" className="d-block mx-auto">
-                        Login
-                    </Button>
+                <form onSubmit={handleSubmit(onFormSubmit)} className="auth-form">
+                    <div className="form-field">
+                        <label className="field-label">Email address</label>
+                        <input
+                            type="email"
+                            className={`field-input ${errors.email ? 'field-input--error' : ''}`}
+                            placeholder="you@example.com"
+                            {...register('email', { required: true })}
+                        />
+                        {errors.email && <span className="field-error">Email is required</span>}
+                    </div>
 
-                    
-                    <Form.Label className=" d-flex align-items-center">
-                        Don't have an account? 
-                        <Button onClick={()=>navigate('/signup')} variant="link">Signup</Button>
-                    </Form.Label>
+                    <div className="form-field">
+                        <label className="field-label">Password</label>
+                        <input
+                            type="password"
+                            className={`field-input ${errors.password ? 'field-input--error' : ''}`}
+                            placeholder="Enter your password"
+                            {...register('password', { required: true })}
+                        />
+                        {errors.password && <span className="field-error">Password is required</span>}
+                    </div>
 
-                </Form>
+                    <button type="submit" className="auth-btn" disabled={isLoading}>
+                        {isLoading ? 'Signing in...' : 'Sign in'}
+                    </button>
+                </form>
+
+                <p className="auth-footer-text">
+                    Don't have an account?{' '}
+                    <button className="auth-link-btn" onClick={() => navigate('/sign-up')}>
+                        Sign up
+                    </button>
+                </p>
             </div>
+            <Footer />
         </div>
-        <Footer />
-    </div>
-    )
+    );
 }
 
 export default Login

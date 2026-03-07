@@ -1,15 +1,126 @@
-.bg-clr{
-    background-color: #222222;
-}
-
-.link-hover:hover{
-    color: #66b2b2;
-}
-
-a{
+a {
     text-decoration: none;
 }
 
-ul{
+ul {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
+
+/* ─── Footer ─── */
+.vj-footer {
+    background-color: #0f2a36;
+    color: rgba(255, 255, 255, 0.75);
+    padding: 4rem 0 0;
+}
+
+.vj-footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2.5rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.vj-footer-col-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 1rem;
+}
+
+.vj-footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.vj-footer-link {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.vj-footer-link:hover {
+    color: #ffffff;
+}
+
+/* Stats */
+.vj-footer-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1.25rem;
+}
+
+.vj-footer-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.75);
+}
+
+.vj-footer-stat-icon {
+    color: var(--clr-primary-light);
+    width: 18px;
+    text-align: center;
+}
+
+/* Social icons */
+.vj-footer-social {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.75rem;
+}
+
+.vj-footer-social-link {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.vj-footer-social-link:hover {
+    background: var(--clr-primary);
+    color: #ffffff;
+}
+
+/* Bottom bar */
+.vj-footer-bottom {
+    padding: 1.25rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.vj-footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+}
+
+.vj-footer-copy {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.35);
+    margin: 0;
+}
+
+/* Legacy class kept for backward compat */
+.bg-clr { background-color: #0f2a36; }
+.link-hover:hover { color: #66b2b2; }
+.fonter { font-family: inherit; }

@@ -32,8 +32,8 @@ mclient.connect(DBurl)
 const userApp = require("./APIs/userApi");
 const appointmentApp = require("./APIs/appointmentApi");
 
-app.use("/user-api", userApp);
-app.use("/appointment-api", appointmentApp);
+app.use("/api/users", userApp);
+app.use("/api/appointments", appointmentApp);
 
 app.use('*',(request, response) => {
     response.sendFile(path.join(__dirname,'./build/index.html'));

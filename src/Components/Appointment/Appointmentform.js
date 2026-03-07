@@ -1,83 +1,105 @@
 import React from 'react'
-import {useForm} from 'react-hook-form'
-import './Appointmentform.css';
-import '../Styles/Appointment.css'
-import axios from 'axios';
-import {useSelector} from 'react-redux';
-import { useResolvedPath } from 'react-router-dom';
-import {useNavigate} from "react-router-dom";
+import { useForm } from 'react-hook-form'
+import './Appointmentform.css'
+import axios from 'axios'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
+const specializations = [
+    { value: 'general', label: 'General' },
+    { value: 'pediatric', label: 'Pediatrician' },
+    { value: 'orthopedic', label: 'Orthopedic' },
+    { value: 'cardio', label: 'Cardiology' },
+]
+
+const timeSlots = []
+for (let h = 8; h <= 20; h++) {
+    timeSlots.push(`${String(h).padStart(2, '0')}:00`)
+    if (h < 20) timeSlots.push(`${String(h).padStart(2, '0')}:30`)
+}
+
+const today = new Date().toISOString().slice(0, 10)
 
 function Appointmentform() {
-    const {register,handleSubmit,formState:{errors}} = useForm()
-
-    const navigate = useNavigate();
-
-    let { userObj, isError, isLoading, isSuccess, errMsg } = useSelector((state) => state.user);
+    const { register, handleSubmit, formState: { errors } } = useForm()
+    const navigate = useNavigate()
+    const { userObj } = useSelector((state) => state.user)
 
     const onFormSubmit = (user) => {
-        window.alert("Successfully registered an apppointment");
-        const userEmail = {
-            email: userObj.email,
-            phone: userObj.phone
-        };
-        const userDetails = Object.assign(user,userEmail)
-        axios.post('/appointment-api/book-appointment', userDetails, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
-        .then(response => {
-            // console.log(response)
-            navigate('/Appointment/view-appointments')
+        const { apptDate, apptTime, ...rest } = user
+        const userDetails = { ...rest, datetime: new Date(`${apptDate}T${apptTime}`).toISOString(), email: userObj.email, phone: userObj.phone }
+        axios.post('/api/appointments', userDetails, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
+        .then(() => navigate('/appointments/view-appointments'))
         .catch(error => alert(error))
     }
+
     return (
-        <div className="background-clr pt-3">
-            <div className="row mx-auto">
-                <div className="cols col-lg-2"></div>
-                <div className="cols col-lg-8">  
-                    <div className="row pb-4">
-                        <div className="col-lg-10 col-md-8 mx-auto">
-                            <form onSubmit = {handleSubmit(onFormSubmit)} className="form-shadow">
-                            <img className="doctor-image mt-2" src="https://thumbs.dreamstime.com/b/group-hospital-doctors-over-health-care-clinic-background-89857953.jpg" alt=""/>
-                            <p className="text-center fonter p-1">Book an appointment with your doctor who is the perfect match for your medical needs.</p>
-                                <div>
-                                    <label htmlFor="name">Patient's name:</label>
-                                    <input type="text" id="name" className="form-control" {...register("name",{required:true,minLength:3})} />
-                                    {errors.name?.type==='required'&& <p className="text-danger">* Required field</p>}
-                                    {errors.name?.type === 'minLength' && <p className='text-danger'>* Min length should be 3</p>}
-                                </div>
-                                <label htmlFor="doc">Doctor specialization:</label>
-                                    <div className="form-check">
-                                        <input type="radio" id="doc" className="form-check-input" {...register("doc")} value = "general"/> 
-                                        <label htmlFor="gen">General doctor</label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input type="radio" id="doc" className="form-check-input" {...register("doc")} value = "pediatric"/> 
-                                        <label htmlFor="ped">Pediatrician</label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input type="radio" id="doc" className="form-check-input" {...register("doc")} value = "orthopedic"/> 
-                                        <label htmlFor="ortho">Orthopedic</label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input type="radio" id="doc" className="form-check-input" {...register("doc")} value = "cardio"/> 
-                                        <label htmlFor="cardio">Cardiology</label>
-                                    </div>
-                                <label htmlFor="date">Appointment date:  </label>
-                                <input type="date" id="date" className="form-control" {...register("date")}/>
-                                <label htmlFor="time">Appointment time:  </label>
-                                <select name="time" id="time" className="form-select" {...register("time")}>
-                                    <option value='Any' >Any time is okay</option>
-                                    <option value="19:00" >19:00</option>
-                                    <option value="19:30" >19:30</option>
-                                    <option value="20:00" >20:00</option>
-                                </select>
-                                <button size="lg" style={{ backgroundColor: "rgb(1, 95, 130)",display: "block"}} type="submit" className="btn btn-secondary w-50 mx-auto mt-2">Book!</button>
-                            </form>
-                        </div>
-                    </div>
+        <div className="appt-form-card">
+            <h3>Book an Appointment</h3>
+            <p>Find the perfect specialist for your medical needs.</p>
+
+            <form onSubmit={handleSubmit(onFormSubmit)}>
+                <div className="form-field">
+                    <label className="field-label">Patient's name</label>
+                    <input
+                        type="text"
+                        className={`field-input ${errors.name ? 'field-input--error' : ''}`}
+                        placeholder="Full name"
+                        {...register('name', { required: true, minLength: 3 })}
+                    />
+                    {errors.name?.type === 'required' && <span className="field-error">Name is required</span>}
+                    {errors.name?.type === 'minLength' && <span className="field-error">Minimum 3 characters</span>}
                 </div>
-            </div>
+
+                <div className="form-field">
+                    <label className="field-label">Specialization</label>
+                    <div className="spec-group">
+                        {specializations.map(({ value, label }) => (
+                            <React.Fragment key={value}>
+                                <input
+                                    type="radio"
+                                    id={`spec-${value}`}
+                                    className="spec-option"
+                                    {...register('specialization', { required: true })}
+                                    value={value}
+                                />
+                                <label htmlFor={`spec-${value}`} className="spec-label">{label}</label>
+                            </React.Fragment>
+                        ))}
+                    </div>
+                    {errors.specialization?.type === 'required' && <span className="field-error">Please select a specialization</span>}
+                </div>
+
+                <div className="form-field">
+                    <label className="field-label">Appointment date</label>
+                    <input
+                        type="date"
+                        className={`field-input ${errors.apptDate ? 'field-input--error' : ''}`}
+                        min={today}
+                        {...register('apptDate', { required: true })}
+                    />
+                    {errors.apptDate?.type === 'required' && <span className="field-error">Date is required</span>}
+                </div>
+
+                <div className="form-field">
+                    <label className="field-label">Preferred time</label>
+                    <select
+                        className={`field-input ${errors.apptTime ? 'field-input--error' : ''}`}
+                        {...register('apptTime', { required: true })}
+                    >
+                        <option value="">Select a time</option>
+                        {timeSlots.map((slot) => (
+                            <option key={slot} value={slot}>{slot}</option>
+                        ))}
+                    </select>
+                    {errors.apptTime?.type === 'required' && <span className="field-error">Time is required</span>}
+                </div>
+
+                <button type="submit" className="appt-submit-btn">Book Appointment</button>
+            </form>
         </div>
-        
     )
 }
 

@@ -3,41 +3,45 @@ import axios from 'axios';
 
 //make HTTP POST req to login user
 export const userLogin=createAsyncThunk('loginuser',async(userCredentialsObject,thunkApi)=>{
-
-    let response=await axios.post('/user-api/login',userCredentialsObject);
-    let data=response.data;
-    if(data.message==='success'){
-        // console.log(data.payload);
-        localStorage.setItem('token',data.payload);
-        localStorage.setItem('isLogin',true);
-        return data.userObj;
+    try {
+        let response=await axios.post('/api/users/login',userCredentialsObject);
+        let data=response.data;
+        if(data.message==='success'){
+            localStorage.setItem('token',data.payload);
+            localStorage.setItem('isLogin','true');
+            localStorage.setItem('userObj',JSON.stringify(data.userObj));
+            return data.userObj;
+        }
+        return thunkApi.rejectWithValue(data);
+    } catch(err) {
+        const msg = err.response?.data?.message || 'Login failed. Please try again.';
+        return thunkApi.rejectWithValue({ message: msg });
     }
-    if(data.message==='Invalid user' || data.message==='Invalid password'){
-        return thunkApi.rejectWithValue(data)
-    }
-
 })
 
-
-
+const storedUser = localStorage.getItem('userObj');
+const storedIsLogin = localStorage.getItem('isLogin') === 'true';
 
 let userSlice=createSlice({
     name:'user',
     initialState:{
-    userObj:{},
-    isError:false,
-    isSuccess:false,
-    isLoading:false,
-    errMsg:''
+        userObj: storedUser ? JSON.parse(storedUser) : {},
+        isError:false,
+        isSuccess: storedIsLogin,
+        isLoading:false,
+        errMsg:''
     },
     reducers:{
-    clearLoginStatus:(state)=>{
-        state.isSuccess=false;
-        state.userObj=null;
-        state.isError=false;
-        state.errMsg='';
-        return state;
-    }
+        clearLoginStatus:(state)=>{
+            state.isSuccess=false;
+            state.userObj=null;
+            state.isError=false;
+            state.errMsg='';
+            localStorage.removeItem('token');
+            localStorage.removeItem('isLogin');
+            localStorage.removeItem('userObj');
+            return state;
+        }
     },
     extraReducers:(builder)=>{
         builder
@@ -55,7 +59,7 @@ let userSlice=createSlice({
             state.isError=true;
             state.isLoading=false;
             state.isSuccess=false;
-            state.errMsg=action.payload.message;
+            state.errMsg=action.payload?.message || 'Login failed. Please try again.';
         })
     }
 })

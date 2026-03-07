@@ -1,3 +1,112 @@
-.bg-myBackgroud{
-    background-color:rgb(1, 95, 130);
-  }
+.vj-navbar {
+    background-color: var(--clr-primary) !important;
+    box-shadow: 0 2px 12px rgba(1, 73, 95, 0.25);
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.vj-navbar-inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.6rem 2rem;
+    flex-wrap: nowrap;
+}
+
+.vj-brand {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: #ffffff !important;
+    margin-right: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+.vj-nav-links {
+    gap: 0.25rem;
+}
+
+.vj-nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.5rem 0.9rem !important;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.vj-nav-link:hover {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.vj-nav-link.active {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.18);
+}
+
+.vj-nav-cta {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 0.4rem 1rem !important;
+}
+
+.vj-nav-cta:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* ─── Inline user / logout ─── */
+.vj-user-email {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+}
+
+.vj-logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.vj-logout-btn:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.55);
+}
+
+/* ─── Mobile toggle ─── */
+.navbar-toggler {
+    border-color: transparent !important;
+    margin-left: auto;
+}
+
+.navbar-toggler-icon {
+    filter: brightness(2);
+}
+
+@media (max-width: 767.98px) {
+    .vj-navbar-inner {
+        padding: 0.6rem 1rem;
+        flex-wrap: wrap;
+    }
+
+    .vj-user-email {
+        max-width: 140px;
+    }
+}

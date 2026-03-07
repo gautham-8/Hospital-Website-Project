@@ -20,8 +20,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/user-api': 'http://localhost:4000',
-      '/appointment-api': 'http://localhost:4000'
+      '/api': 'http://localhost:4000'
     }
   }
 })

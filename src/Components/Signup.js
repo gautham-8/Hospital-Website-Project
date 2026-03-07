@@ -1,72 +1,110 @@
-import React from 'react'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import {useForm} from 'react-hook-form'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import axios from 'axios'
 import Footer from './Footer'
-import {useSelector} from "react-redux";
+import './Styles/forms.css'
 
 function Signup() {
-    const {register,handleSubmit,formState:{errors}} = useForm()
-    let { userObj, isError, isLoading, isSuccess, errMsg } = useSelector((state) => state.user);
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { userObj, isSuccess } = useSelector((state) => state.user);
+    const navigate = useNavigate();
+    const [submitError, setSubmitError] = useState('');
+    const [submitSuccess, setSubmitSuccess] = useState(false);
+
+    const isAdmin = isSuccess && userObj.email === 'admin@vj.com';
 
     const onFormSubmit = (user) => {
-        let staffStatus;
-        console.log(userObj);
-        if(userObj.email != null) staffStatus = true;
-        else staffStatus = false;
-
-        let staffObj = {
-            isStaff: staffStatus
-        }
-        let userData = Object.assign(user,staffObj);
-        console.log(userData)
-        axios.post('/user-api/create-user', userData)
-        .then(response => {
-            console.log(response)
-        })
-        .catch(error => alert(error))
-    }
+        setSubmitError('');
+        const userData = { ...user, isStaff: isAdmin ? true : false };
+        axios.post('/api/users', userData)
+            .then(() => {
+                setSubmitSuccess(true);
+                if (!isAdmin) setTimeout(() => navigate('/login'), 1500);
+            })
+            .catch((error) => setSubmitError(error.response?.data?.message || 'Registration failed. Please try again.'));
+    };
 
     return (
-        <div className="">
-            <div className="card cols col-lg-5 col-md-8 col-10 mx-auto m-5">
-                <div className="container mb-2">
-                    <p className="display-6 text-center">Signup</p>
-                    <Form onSubmit = {handleSubmit(onFormSubmit)}>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" {...register("email",{required:true})}/>
-                            {errors.email && (<p className="text-danger">*Required field</p>)}
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Phone number</Form.Label>
-                            <Form.Control type="text" placeholder="Phone number" {...register("phone",{required:true})} />
-                            {errors.phone?.type==='required'&& <p className="text-danger">* Required field</p>}
-                        </Form.Group>
-    
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" {...register("password",{required:true})}/>
-                            {errors.password?.type==='required'&& <p className="text-danger">* Required field</p>}
-                        </Form.Group>
-
-                        <Form.Group className="mb-3">
-                            <Form.Label>City</Form.Label>
-                            <Form.Control type="text" placeholder="City" {...register("city",{required:true})}/>
-                            {errors.city?.type==='required'&& <p className="text-danger">* Required field</p>}
-                        </Form.Group>
-    
-                        <Button style={{ backgroundColor: "rgb(1, 95, 130)"}} variant="primary" type="submit" className="d-block mx-auto">
-                            Signup
-                        </Button>
-
-                    </Form>
+        <div className="auth-page">
+            <div className="auth-card">
+                <div className="auth-header">
+                    <h2 className="auth-title">{isAdmin ? 'Add Staff Member' : 'Create account'}</h2>
+                    <p className="auth-subtitle">
+                        {isAdmin ? 'Register a new staff member' : 'Join VJ Hospitals today'}
+                    </p>
                 </div>
+
+                {submitError && <div className="auth-alert">{submitError}</div>}
+                {submitSuccess && (
+                    <div className="auth-alert" style={{ background: '#f0fdf4', borderColor: '#86efac', color: '#16a34a' }}>
+                        {isAdmin ? 'Staff member added successfully!' : 'Account created! Redirecting to login...'}
+                    </div>
+                )}
+
+                <form onSubmit={handleSubmit(onFormSubmit)} className="auth-form">
+                    <div className="form-field">
+                        <label className="field-label">Email address</label>
+                        <input
+                            type="email"
+                            className={`field-input ${errors.email ? 'field-input--error' : ''}`}
+                            placeholder="you@example.com"
+                            {...register('email', { required: true })}
+                        />
+                        {errors.email && <span className="field-error">Email is required</span>}
+                    </div>
+
+                    <div className="form-field">
+                        <label className="field-label">Phone number</label>
+                        <input
+                            type="text"
+                            className={`field-input ${errors.phone ? 'field-input--error' : ''}`}
+                            placeholder="+91 00000 00000"
+                            {...register('phone', { required: true })}
+                        />
+                        {errors.phone && <span className="field-error">Phone is required</span>}
+                    </div>
+
+                    <div className="form-field">
+                        <label className="field-label">Password</label>
+                        <input
+                            type="password"
+                            className={`field-input ${errors.password ? 'field-input--error' : ''}`}
+                            placeholder="Create a password"
+                            {...register('password', { required: true })}
+                        />
+                        {errors.password && <span className="field-error">Password is required</span>}
+                    </div>
+
+                    <div className="form-field">
+                        <label className="field-label">City</label>
+                        <input
+                            type="text"
+                            className={`field-input ${errors.city ? 'field-input--error' : ''}`}
+                            placeholder="Your city"
+                            {...register('city', { required: true })}
+                        />
+                        {errors.city && <span className="field-error">City is required</span>}
+                    </div>
+
+                    <button type="submit" className="auth-btn">
+                        {isAdmin ? 'Add Staff Member' : 'Create Account'}
+                    </button>
+                </form>
+
+                {!isAdmin && (
+                    <p className="auth-footer-text">
+                        Already have an account?{' '}
+                        <button className="auth-link-btn" onClick={() => navigate('/login')}>
+                            Sign in
+                        </button>
+                    </p>
+                )}
             </div>
             <Footer />
         </div>
-        )
+    );
 }
 
 export default Signup

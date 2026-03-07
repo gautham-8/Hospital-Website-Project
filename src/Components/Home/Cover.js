@@ -3,9 +3,17 @@ import './home.css'
 
 function Cover() {
   return (
-    <div className="bg-grey">
-        <img className="img-fluid rounded mx-auto d-block" src="https://scopeblog.stanford.edu/wp-content/uploads/2020/12/New-Stanford-Hospital-courtesy-of-SHC-1152x578-1.jpg" alt="" />
-        <p className="display-5 text-center head-clr mb-3 pt-1 pb-1">"Every Kind of Care <br/> for Every Kind of Patient"</p>
+    <div className="hero-section">
+      <img
+        className="hero-image"
+        src="/images/hospital-hero.jpg"
+        alt="VJ Hospitals"
+      />
+      <div className="hero-overlay" />
+      <div className="hero-content">
+        <h1 className="hero-heading">Every Kind of Care<br />for Every Kind of Patient</h1>
+        <p className="hero-subtext">World-class medicine. Human-centered care.</p>
+      </div>
     </div>
   )
 }

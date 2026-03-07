@@ -3,10 +3,12 @@ import './card.css'
 
 function Card3() {
   return (
-    <div className="card text-center w-75 bg-teal text-light">
-        <img className="bg-light img-fluid d-block mx-auto" src="https://www.medicoverhospitals.in/images/icon/cardiology-speciality.png" alt="" />
-        <h4>Cardiology</h4>
-        <p>The Cardiology department at VJ Hospitals offers the latest technology and top specialists with best practices in emergency cardiac services and minimally invasive interventions and surgeries.</p>
+    <div className="specialty-card">
+        <div className="specialty-card-img-wrap">
+            <img src="/images/cardiology.png" alt="Cardiology" />
+        </div>
+        <h4 className="specialty-card-title">Cardiology</h4>
+        <p className="specialty-card-desc">Latest technology and top specialists with best practices in emergency cardiac services and minimally invasive interventions.</p>
     </div>
   )
 }

@@ -1,13 +1,133 @@
-.appoint-header{
-    font-family: 'Prompt', sans-serif;
+.appoint-header {
     text-align: center;
 }
 
-.head-clr{
-    /* color: rgb(1, 95, 130); */
-    color: rgb(0, 88, 123);
+.head-clr {
+    color: var(--clr-primary);
 }
 
-.background-clr{
-    background-color: rgba(249,246,239,255);
+.background-clr {
+    background-color: var(--clr-bg);
+}
+
+/* ─── Appointment Page ─── */
+.appt-page {
+    min-height: calc(100vh - 62px);
+    background-color: var(--clr-bg);
+    display: flex;
+    flex-direction: column;
+}
+
+.appt-page > .container {
+    flex: 1;
+    padding-top: 2.5rem;
+    padding-bottom: 3rem;
+}
+
+.appt-page-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--clr-primary);
+    margin-bottom: 1.5rem;
+}
+
+/* ─── Tab Nav ─── */
+.appt-tabs {
+    display: flex;
+    gap: 0.5rem;
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    padding: 0.35rem;
+    width: fit-content;
+    margin: 0 auto 2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.appt-tab-link {
+    padding: 0.55rem 1.4rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--clr-text-muted);
+    text-decoration: none;
+    transition: var(--transition);
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.appt-tab-link:hover {
+    color: var(--clr-primary);
+    background: var(--clr-primary-light);
+}
+
+.appt-tab-link.active {
+    background: var(--clr-primary);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(1, 95, 130, 0.3);
+}
+
+/* ─── Appointments Table ─── */
+.appt-table-wrap {
+    background: var(--clr-surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--clr-border);
+    overflow-x: auto;
+}
+
+.appt-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.appt-table thead tr {
+    background: var(--clr-primary);
+    color: #ffffff;
+}
+
+.appt-table th {
+    padding: 0.85rem 1rem;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.appt-table td {
+    padding: 0.8rem 1rem;
+    color: var(--clr-text);
+    border-bottom: 1px solid var(--clr-border);
+}
+
+.appt-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.appt-table tbody tr:hover {
+    background: var(--clr-primary-light);
+}
+
+.appt-delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--clr-text-muted);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 1.1rem;
+    transition: var(--transition);
+}
+
+.appt-delete-btn:hover {
+    color: #dc2626;
+    background: #fef2f2;
+}
+
+.appt-empty {
+    text-align: center;
+    padding: 3rem;
+    color: var(--clr-text-muted);
+    font-size: 0.95rem;
 }

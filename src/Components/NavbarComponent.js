@@ -1,43 +1,33 @@
 import React from 'react';
-import {Nav, Navbar} from 'react-bootstrap'
+import { Nav, Navbar } from 'react-bootstrap';
 import './Styles/Navbarstyle.css';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faFirstAid} from '@fortawesome/free-solid-svg-icons'
-import {Route,Routes,NavLink} from 'react-router-dom';
-import Home from './Home';
-import Aboutus from './Aboutus';
-import Appointment from './Appointment';
-import Login from './Login';
-import Signup from './Signup';
-import { FaUserCircle } from "react-icons/fa";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFirstAid } from '@fortawesome/free-solid-svg-icons';
+import { NavLink } from 'react-router-dom';
+import { FaUserCircle } from 'react-icons/fa';
 
 function NavbarComponent() {
-    return <div>
-        <Navbar className="container-fluid" expand="md" bg="myBackgroud" variant="dark">
-            <Navbar.Brand>
-                <FontAwesomeIcon icon={faFirstAid} className="" /> VJ Hospitals
-            </Navbar.Brand>
-
-            <Navbar.Toggle />
-            <Navbar.Collapse>
-                <Nav className="me-auto">
-                    <NavLink className="active nav-link" to="/">Home</NavLink>
-                    <NavLink className="active nav-link" to="/Aboutus">About us</NavLink>
-                    {/* <NavLink className="active nav-link" to="/Appointment">Book an appointment</NavLink> */}
-                </Nav>
-                <Nav className="">
-                    <NavLink className="active nav-link" to="/Login"> <FaUserCircle/> Login/Signup</NavLink>
-                </Nav>
-            </Navbar.Collapse>
+    return (
+        <Navbar className="vj-navbar" expand="md" variant="dark" sticky="top">
+            <div className="vj-navbar-inner">
+                <Navbar.Brand as={NavLink} to="/" className="vj-brand">
+                    <FontAwesomeIcon icon={faFirstAid} /> VJ Hospitals
+                </Navbar.Brand>
+                <Navbar.Toggle />
+                <Navbar.Collapse>
+                    <Nav className="me-auto vj-nav-links">
+                        <NavLink className="vj-nav-link" to="/">Home</NavLink>
+                        <NavLink className="vj-nav-link" to="/about-us">About Us</NavLink>
+                    </Nav>
+                    <Nav class="mt-2">
+                        <NavLink className="vj-nav-link vj-nav-cta" to="/login">
+                            <FaUserCircle className="me-1" /> Login / Signup
+                        </NavLink>
+                    </Nav>
+                </Navbar.Collapse>
+            </div>
         </Navbar>
-        <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/Aboutus' element={<Aboutus />} />
-            {/* <Route path='/Appointment' element={<Appointment />} /> */}
-            <Route path='/login' element={<Login />} />
-            <Route path='/Signup' element={<Signup />} />
-        </Routes>
-    </div>;
+    );
 }
 
 export default NavbarComponent;

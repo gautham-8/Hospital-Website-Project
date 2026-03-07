@@ -11,8 +11,9 @@ require("dotenv").config();
 // extract body of request
 userApp.use(exp.json());
 
-userApp.get("/getusers", verifyToken, expressAsyncHandler(async (request, response) =>{
+userApp.get("/", verifyToken, expressAsyncHandler(async (request, response) =>{
         let userCollectionObject = request.app.get("userCollectionObject");
+        if (!userCollectionObject) return response.status(503).send({ message: "Database not available" });
         let users=await userCollectionObject.find().toArray();
         response.send ({ message: "Users list", payload: users });
         })
@@ -20,6 +21,7 @@ userApp.get("/getusers", verifyToken, expressAsyncHandler(async (request, respon
 
 userApp.post("/login", expressAsyncHandler(async (request, response) => {
         let userCollectionObject = request.app.get("userCollectionObject");
+        if (!userCollectionObject) return response.status(503).send({ message: "Database not available. Please try again shortly." });
         let userCredObj = request.body;
 
         let userOfDB = await userCollectionObject.findOne({
@@ -48,8 +50,9 @@ userApp.post("/login", expressAsyncHandler(async (request, response) => {
         })
     );
 
-userApp.post("/create-user", expressAsyncHandler(async (request, response) => {
+userApp.post("/", expressAsyncHandler(async (request, response) => {
         let userCollectionObject = request.app.get("userCollectionObject");
+        if (!userCollectionObject) return response.status(503).send({ message: "Database not available. Please try again shortly." });
         let newUserObj = request.body;
         let userOfDB = await userCollectionObject.findOne({
             email: newUserObj.email,

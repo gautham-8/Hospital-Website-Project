@@ -3,10 +3,12 @@ import './card.css'
 
 function Card4() {
   return (
-    <div className="card text-center w-75 bg-teal text-light">
-        <img className="bg-light img-fluid d-block mx-auto" src="https://www.medicoverhospitals.in/images/icon/general-surgery-speciality.png" alt="" />
-        <h4>General surgery</h4>
-        <p>The department of general surgery includes our experts in general and minimal invasive surgery.</p>
+    <div className="specialty-card">
+        <div className="specialty-card-img-wrap">
+            <img src="/images/general-surgery.png" alt="General Surgery" />
+        </div>
+        <h4 className="specialty-card-title">General Surgery</h4>
+        <p className="specialty-card-desc">Our experts in general and minimally invasive surgery deliver world-class surgical care.</p>
     </div>
   )
 }
