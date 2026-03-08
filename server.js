@@ -2,12 +2,14 @@ const exp = require("express");
 const app = exp();
 const mclient=require("mongodb").MongoClient;
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 require("dotenv").config();
 
 const path = require('path');
 
-app.use(cors());
+app.use(cors({ origin: process.env.CLIENT_ORIGIN || true, credentials: true }));
+app.use(cookieParser());
 
 app.use(exp.static(path.join(__dirname, "./build")));
 

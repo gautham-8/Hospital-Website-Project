@@ -8,17 +8,16 @@ import './Styles/forms.css'
 
 function Signup() {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { userObj, isSuccess } = useSelector((state) => state.user);
+    const { role } = useSelector((state) => state.user);
     const navigate = useNavigate();
     const [submitError, setSubmitError] = useState('');
     const [submitSuccess, setSubmitSuccess] = useState(false);
 
-    const isAdmin = isSuccess && userObj.email === 'admin@vj.com';
+    const isAdmin = role === 'admin';
 
     const onFormSubmit = (user) => {
         setSubmitError('');
-        const userData = { ...user, isStaff: isAdmin ? true : false };
-        axios.post('/api/users', userData)
+        axios.post('/api/users', user)
             .then(() => {
                 setSubmitSuccess(true);
                 if (!isAdmin) setTimeout(() => navigate('/login'), 1500);
@@ -71,10 +70,11 @@ function Signup() {
                         <input
                             type="password"
                             className={`field-input ${errors.password ? 'field-input--error' : ''}`}
-                            placeholder="Create a password"
-                            {...register('password', { required: true })}
+                            placeholder="Create a password (min. 8 characters)"
+                            {...register('password', { required: true, minLength: 8 })}
                         />
-                        {errors.password && <span className="field-error">Password is required</span>}
+                        {errors.password?.type === 'required' && <span className="field-error">Password is required</span>}
+                        {errors.password?.type === 'minLength' && <span className="field-error">Password must be at least 8 characters</span>}
                     </div>
 
                     <div className="form-field">

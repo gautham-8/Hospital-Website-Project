@@ -1,7 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
+import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 import NavbarComponent from './Components/NavbarComponent';
@@ -16,16 +17,24 @@ import Appointment from './Components/Appointment';
 import BookAppointment from './Components/Appointment/Appointmentform';
 import ViewAppointment from './Components/Appointment/ViewAppointment';
 import { PrivateRoute, GuestRoute } from './Components/RouteGuards';
+import { fetchCurrentUser } from './Slices/userSlice';
 
 function App() {
-  const { userObj, isSuccess } = useSelector((state) => state.user);
-  const isAdmin = isSuccess && userObj.email === 'admin@vj.com';
-  const isStaff = isSuccess && userObj.isStaff === true;
-  const isRegularUser = isSuccess && !isAdmin && !isStaff;
+  const dispatch = useDispatch();
+  const { role, isAuthenticated } = useSelector((state) => state.user);
+
+  const isAdmin = role === 'admin';
+  const isStaff = role === 'staff';
+  const isRegularUser = isAuthenticated && !isAdmin && !isStaff;
+
+  // Restore session from httpOnly cookie on app load
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
 
   return (
     <div className="App">
-      {!isSuccess && <NavbarComponent />}
+      {!isAuthenticated && <NavbarComponent />}
       {isRegularUser && <NavbarLogin />}
       {isAdmin && <NavbarAdmin />}
       {isStaff && <NavbarStaff />}

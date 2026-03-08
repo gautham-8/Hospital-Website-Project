@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux'
 import ViewAppointment from './Appointment/ViewAppointment'
 
 function Appointment() {
-    const { userObj } = useSelector((state) => state.user);
-    const isPrivileged = userObj.isStaff === true || userObj.email === 'admin@vj.com';
+    const { role } = useSelector((state) => state.user);
+    const isPrivileged = role === 'admin' || role === 'staff';
 
     return (
         <div className="appt-page">

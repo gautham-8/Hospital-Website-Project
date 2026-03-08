@@ -23,16 +23,14 @@ const today = new Date().toISOString().slice(0, 10)
 function Appointmentform() {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const navigate = useNavigate()
-    const { userObj } = useSelector((state) => state.user)
+    const { phone } = useSelector((state) => state.user)
 
     const onFormSubmit = (user) => {
         const { apptDate, apptTime, ...rest } = user
-        const userDetails = { ...rest, datetime: new Date(`${apptDate}T${apptTime}`).toISOString(), email: userObj.email, phone: userObj.phone }
-        axios.post('/api/appointments', userDetails, {
-            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-        })
-        .then(() => navigate('/appointments/view-appointments'))
-        .catch(error => alert(error))
+        const userDetails = { ...rest, datetime: new Date(`${apptDate}T${apptTime}`).toISOString(), phone }
+        axios.post('/api/appointments', userDetails)
+            .then(() => navigate('/appointments/view-appointments'))
+            .catch(error => console.error(error))
     }
 
     return (

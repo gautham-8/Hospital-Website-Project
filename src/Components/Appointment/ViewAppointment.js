@@ -11,18 +11,13 @@ const formatDatetime = (iso) => {
 
 function ViewAppointment() {
     const [appointmentList, setAppointments] = useState([])
-    const { userObj } = useSelector((state) => state.user)
+    const { role } = useSelector((state) => state.user)
 
-    const token = localStorage.getItem('token')
-    const authHeader = { headers: { Authorization: `Bearer ${token}` } }
-
-    const isPrivileged = userObj.email === 'admin@vj.com' || userObj.isStaff === true
-    const url = isPrivileged
-        ? '/api/appointments'
-        : `/api/appointments/user/${userObj.email}`
+    const isPrivileged = role === 'admin' || role === 'staff'
+    const url = isPrivileged ? '/api/appointments' : '/api/appointments/mine'
 
     const fetchAppointments = () => {
-        axios.get(url, authHeader)
+        axios.get(url)
             .then((res) => setAppointments(res.data.payload || []))
             .catch((err) => console.error(err))
     }
@@ -30,7 +25,7 @@ function ViewAppointment() {
     useEffect(() => { fetchAppointments() }, [])
 
     const removeElement = (id) => {
-        axios.delete(`/api/appointments/${id}`, authHeader)
+        axios.delete(`/api/appointments/${id}`)
             .then(fetchAppointments)
             .catch((err) => console.error(err))
     }

@@ -5,17 +5,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFirstAid } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
-import { clearLoginStatus } from '../Slices/userSlice';
+import { clearLoginStatus, userLogout as logoutThunk } from '../Slices/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 function NavbarStaff() {
-    const { userObj } = useSelector((state) => state.user);
+    const { email } = useSelector((state) => state.user);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const userLogout = () => {
-        dispatch(clearLoginStatus());
-        navigate('/login');
+        dispatch(logoutThunk()).finally(() => {
+            dispatch(clearLoginStatus());
+            navigate('/login');
+        });
     };
 
     return (
@@ -32,7 +34,7 @@ function NavbarStaff() {
                         <NavLink className="vj-nav-link" to="/appointments">Appointments</NavLink>
                     </Nav>
                     <Nav className="align-items-center gap-2">
-                        <span className="vj-user-email">{userObj?.email}</span>
+                        <span className="vj-user-email">{email}</span>
                         <button className="vj-logout-btn" onClick={userLogout}>
                             <FiLogOut /> Logout
                         </button>

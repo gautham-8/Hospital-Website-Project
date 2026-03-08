@@ -19,7 +19,7 @@ function NavbarComponent() {
                         <NavLink className="vj-nav-link" to="/">Home</NavLink>
                         <NavLink className="vj-nav-link" to="/about-us">About Us</NavLink>
                     </Nav>
-                    <Nav class="mt-2">
+                    <Nav>
                         <NavLink className="vj-nav-link vj-nav-cta" to="/login">
                             <FaUserCircle className="me-1" /> Login / Signup
                         </NavLink>

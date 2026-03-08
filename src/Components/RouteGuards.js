@@ -9,11 +9,13 @@ export function ScrollToTop() {
 }
 
 export function PrivateRoute({ children }) {
-    const { isSuccess } = useSelector((state) => state.user);
-    return isSuccess ? children : <Navigate to="/login" replace />;
+    const { isAuthenticated, isSessionLoading } = useSelector((state) => state.user);
+    if (isSessionLoading) return null;
+    return isAuthenticated ? children : <Navigate to="/login" replace />;
 }
 
 export function GuestRoute({ children }) {
-    const { isSuccess } = useSelector((state) => state.user);
-    return isSuccess ? <Navigate to="/" replace /> : children;
+    const { isAuthenticated, isSessionLoading } = useSelector((state) => state.user);
+    if (isSessionLoading) return null;
+    return isAuthenticated ? <Navigate to="/" replace /> : children;
 }
