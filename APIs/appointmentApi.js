@@ -17,7 +17,7 @@ const appointmentValidation = [
     body("datetime").isISO8601().withMessage("Invalid datetime"),
 ];
 
-// GET all appointments — admin/staff only
+// GET all appointments: admin/staff only
 appointmentApp.get(
     "/",
     verifyToken,
@@ -42,7 +42,7 @@ appointmentApp.get(
     })
 );
 
-// POST — book appointment (must be logged in)
+// POST: book appointment (must be logged in)
 appointmentApp.post(
     "/",
     verifyToken,
@@ -56,7 +56,7 @@ appointmentApp.post(
         let appointmentCollectionObject = request.app.get("appointmentCollectionObject");
         const { name, specialization, datetime, phone } = request.body;
 
-        // Email comes from JWT — never trust the body
+        // Email comes from JWT: never trust the body
         await appointmentCollectionObject.insertOne({
             name,
             specialization,
@@ -68,7 +68,7 @@ appointmentApp.post(
     })
 );
 
-// DELETE — admin/staff can delete any; regular user can only delete their own
+// DELETE: admin/staff can delete any; regular user can only delete their own
 appointmentApp.delete(
     "/:id",
     verifyToken,

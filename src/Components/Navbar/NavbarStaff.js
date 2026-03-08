@@ -1,11 +1,11 @@
 import React from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
-import './Styles/Navbarstyle.css';
+import './NavbarStyle.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFirstAid } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
-import { clearLoginStatus, userLogout as logoutThunk } from '../Slices/userSlice';
+import { clearLoginStatus, userLogout as logoutThunk } from '../../Slices/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 function NavbarStaff() {

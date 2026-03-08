@@ -17,7 +17,6 @@
     border-left: 4px solid var(--clr-primary);
 }
 
-/* ─── Track: flex row — prev button | viewport | next button ─── */
 .carousel-track {
     display: flex;
     align-items: center;

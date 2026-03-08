@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Login — cookie is set by the server's Set-Cookie header automatically
+// Login - cookie is set by the server's Set-Cookie header automatically
 export const userLogin = createAsyncThunk('user/login', async (userCredentialsObject, thunkApi) => {
     try {
         const response = await axios.post('/api/users/login', userCredentialsObject);
@@ -26,7 +26,7 @@ export const fetchCurrentUser = createAsyncThunk('user/fetchCurrentUser', async 
     }
 });
 
-// Logout — clears the server-side cookie
+// Logout - clears the server-side cookie
 export const userLogout = createAsyncThunk('user/logout', async () => {
     await axios.post('/api/users/logout');
 });

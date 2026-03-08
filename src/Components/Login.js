@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { userLogin } from '../Slices/userSlice'
 import Footer from './Footer'
-import './Styles/forms.css'
+import './Styles/Forms.css'
 
 function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm();

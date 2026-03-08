@@ -1,7 +1,7 @@
 import React from 'react'
-import './home.css'
+import './Home.css'
 
-function Whyus() {
+function WhyUs() {
     return (
         <section className="whyus-section">
             <div className="container">
@@ -35,4 +35,4 @@ function Whyus() {
     )
 }
 
-export default Whyus
+export default WhyUs

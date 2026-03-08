@@ -1,6 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import './Appointmentform.css'
+import './AppointmentForm.css'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -20,7 +20,7 @@ for (let h = 8; h <= 20; h++) {
 
 const today = new Date().toISOString().slice(0, 10)
 
-function Appointmentform() {
+function AppointmentForm() {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const navigate = useNavigate()
     const { phone } = useSelector((state) => state.user)
@@ -101,4 +101,4 @@ function Appointmentform() {
     )
 }
 
-export default Appointmentform
+export default AppointmentForm

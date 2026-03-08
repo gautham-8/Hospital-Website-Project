@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 import Footer from './Footer'
-import './Styles/forms.css'
+import './Styles/Forms.css'
 
 function Signup() {
     const { register, handleSubmit, formState: { errors } } = useForm();

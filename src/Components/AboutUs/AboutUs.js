@@ -1,5 +1,5 @@
 import React from 'react'
-import './aboutus.css'
+import './AboutUs.css'
 
 const stats = [
     { value: '22', label: 'Hospitals' },

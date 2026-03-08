@@ -5,7 +5,7 @@ import { GrFormTrash } from 'react-icons/gr'
 import '../Styles/Appointment.css'
 
 const formatDatetime = (iso) => {
-    if (!iso) return '—'
+    if (!iso) return '-'
     return new Date(iso).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })
 }
 

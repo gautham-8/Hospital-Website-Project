@@ -1,16 +1,48 @@
 import React, { useCallback } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
-import './carouselslide.css'
-import Card1 from './Cards/Card1'
-import Card2 from './Cards/Card2'
-import Card3 from './Cards/Card3'
-import Card4 from './Cards/Card4'
-import Card5 from './Cards/Card5'
-import Card6 from './Cards/Card6'
+import './CarouselSlide.css'
+import Card from './Cards/Card'
 
-const cards = [Card1, Card6, Card3, Card2, Card5, Card4]
+const cards = [
+    {
+        src: '/images/liver-transplantation.png',
+        alt: 'Liver Transplantation',
+        heading: 'Liver Transplantation & Hepatobiliary Pancreatic Surgery',
+        description: 'Liver transplant is the substitution of a harmful liver with a healthy liver.',
+    },
+    {
+        src: '/images/pediatrics.png',
+        alt: 'Pediatrics',
+        heading: 'Pediatrics',
+        description: 'Expert health and medical care for babies, children and adolescents from birth to the age of sixteen.',
+    },
+    {
+        src: '/images/cardiology.png',
+        alt: 'Cardiology',
+        heading: 'Cardiology',
+        description: 'Latest technology and top specialists with best practices in emergency cardiac services and minimally invasive interventions.',
+    },
+    {
+        src: '/images/plastic-surgery.png',
+        alt: 'Plastic Surgery',
+        heading: 'Plastic Surgery',
+        description: "Focuses on the reconstruction or alteration of the facial or body tissues to improve a person's appearance.",
+    },
+    {
+        src: '/images/urology.png',
+        alt: 'Urology',
+        heading: 'Urology',
+        description: 'Focused care for conditions of the male and female urinary tract including kidneys, bladder, ureters and urethra.',
+    },
+    {
+        src: '/images/general-surgery.png',
+        alt: 'General Surgery',
+        heading: 'General Surgery',
+        description: 'Our experts in general and minimally invasive surgery deliver world-class surgical care.',
+    },
+]
 
-function Carouselslide() {
+function CarouselSlide() {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start' })
     const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi])
     const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi])
@@ -23,9 +55,9 @@ function Carouselslide() {
                     <button onClick={scrollPrev} className="carousel-btn" aria-label="Previous">&#8249;</button>
                     <div className="embla__viewport" ref={emblaRef}>
                         <div className="embla__container">
-                            {cards.map((Card, i) => (
+                            {cards.map((card, i) => (
                                 <div className="embla__slide" key={i}>
-                                    <Card />
+                                    <Card {...card} />
                                 </div>
                             ))}
                         </div>
@@ -37,4 +69,4 @@ function Carouselslide() {
     )
 }
 
-export default Carouselslide
+export default CarouselSlide

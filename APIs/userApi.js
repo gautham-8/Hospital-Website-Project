@@ -80,7 +80,7 @@ userApp.post("/logout", (_, response) => {
     response.send({ message: "Logged out" });
 });
 
-// GET /me — returns current user info from cookie session
+// GET /me: returns current user info from cookie session
 userApp.get("/me", verifyToken, expressAsyncHandler(async (request, response) => {
     let userCollectionObject = request.app.get("userCollectionObject");
     if (!userCollectionObject) return response.status(503).send({ message: "Database not available" });
@@ -94,7 +94,7 @@ userApp.get("/me", verifyToken, expressAsyncHandler(async (request, response) =>
     response.send({ email: user.email, role: user.role || "user", phone: user.phone });
 }));
 
-// POST / — register new user (or add staff if called by admin)
+// POST /: register new user (or add staff if called by admin)
 userApp.post(
     "/",
     [
@@ -126,7 +126,7 @@ userApp.post(
             try {
                 const decoded = jwt.verify(cookieToken, process.env.JWT_SECRET);
                 if (decoded.role === "admin") role = "staff";
-            } catch (_) { /* not authenticated — treat as public signup */ }
+            } catch (_) { /* not authenticated: treat as public signup */ }
         }
 
         const hashedPassword = await bcryptjs.hash(password, 12);
