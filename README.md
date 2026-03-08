@@ -32,6 +32,22 @@ A full-stack hospital management web app built with React.js, Node.js, Express.j
 
 
 
+### Set up environment variables
+
+Copy the example env file and fill in your credentials:
+
+```shell
+cp .env.example .env
+```
+
+Then open `.env` and set the following values:
+
+| Variable | Description |
+|---|---|
+| `MONGO_URI` | MongoDB connection string - get this from [MongoDB Atlas](https://cloud.mongodb.com) after creating a free M0 cluster. Format: `mongodb+srv://<user>:<password>@<cluster>.mongodb.net/<dbname>?retryWrites=true&w=majority` |
+| `JWT_SECRET` | A long random secret used to sign JWTs. Generate one with: `openssl rand -hex 32` |
+| `PORT` | Port for the Express server (defaults to `4000`) |
+
 ### Install the dependencies
 ```shell
 npm i
