@@ -31,11 +31,16 @@ mclient.connect(DBurl)
 
 
 
+const passport = require("passport");
+app.use(passport.initialize());
+
 const userApp = require("./APIs/userApi");
 const appointmentApp = require("./APIs/appointmentApi");
+const googleAuthApp = require("./APIs/googleAuth");
 
 app.use("/api/users", userApp);
 app.use("/api/appointments", appointmentApp);
+app.use("/api/auth", googleAuthApp);
 
 app.use('*',(request, response) => {
     response.sendFile(path.join(__dirname,'./build/index.html'));
