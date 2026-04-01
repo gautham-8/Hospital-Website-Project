@@ -64,6 +64,12 @@ appointmentApp.post(
             phone,
             email: request.user.email,
         });
+
+        const io = request.app.get("io");
+        if (io) {
+            io.to("staff-room").emit("new-appointment", { name, specialization, datetime });
+        }
+
         response.status(201).send({ message: "New Appointment booked" });
     })
 );

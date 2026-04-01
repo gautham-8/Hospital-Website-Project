@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
-import { useEffect } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -17,6 +17,8 @@ import BookAppointment from './Components/Appointment/AppointmentForm';
 import ViewAppointment from './Components/Appointment/ViewAppointment';
 import { PrivateRoute, GuestRoute } from './Components/RouteGuards';
 import { fetchCurrentUser } from './Slices/userSlice';
+import { useStaffSocket } from './hooks/useStaffSocket';
+import ToastNotification from './Components/Notifications/ToastNotification';
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +27,18 @@ function App() {
   const isAdmin = role === 'admin';
   const isStaff = role === 'staff';
   const isRegularUser = isAuthenticated && !isAdmin && !isStaff;
+
+  const [toasts, setToasts] = useState([]);
+
+  const handleNewAppointment = useCallback((data) => {
+    setToasts((prev) => [...prev, { id: crypto.randomUUID(), ...data }]);
+  }, []);
+
+  const dismissToast = useCallback((id) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  }, []);
+
+  useStaffSocket(handleNewAppointment);
 
   // Restore session from httpOnly cookie on app load
   useEffect(() => {
@@ -37,6 +51,8 @@ function App() {
       {isRegularUser && <NavbarLogin />}
       {isAdmin && <NavbarAdmin />}
       {isStaff && <NavbarStaff />}
+
+      <ToastNotification toasts={toasts} onClose={dismissToast} />
 
       <Routes>
         <Route path="/" element={<Home />} />

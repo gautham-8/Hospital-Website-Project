@@ -6,7 +6,7 @@ A full-stack hospital management web app built with React.js, Node.js, Express.j
 
 **Patients** can register, log in, book appointments across specializations (General, Pediatric, Orthopedic, Cardiology) and view or cancel their own appointments.
 
-**Staff** can view all appointments across patients.
+**Staff** can view all appointments across patients and receive real-time notifications when a new appointment is booked.
 
 **Admins** can view all appointments, manage users and register new staff accounts.
 
@@ -15,7 +15,7 @@ A full-stack hospital management web app built with React.js, Node.js, Express.j
 | Layer | Technology |
 |---|---|
 | Frontend | React.js, React Router, Redux Toolkit, Bootstrap 5, React Hook Form |
-| Backend | Node.js, Express.js |
+| Backend | Node.js, Express.js, Socket.io |
 | Database | MongoDB |
 | Auth | JWT, bcrypt password hashing, Google OAuth 2.0 (Passport.js) |
 
@@ -25,7 +25,19 @@ A full-stack hospital management web app built with React.js, Node.js, Express.j
 - **Secure auth** - JWTs stored in `httpOnly` + `SameSite: strict` cookies so tokens are never accessible to JavaScript and passwords hashed with bcrypt
 - **Google OAuth 2.0** - sign in with Google via Passport.js; new users are auto-registered and existing accounts are linked by email
 - **Rate limiting** - login endpoint throttled to 10 attempts per 15 minutes to prevent brute-force attacks
+- **Real-time notifications** - Socket.io WebSocket server shares the same Express HTTP server; staff and admin users receive live toast notifications the moment a patient books an appointment, with JWT cookie auth verified on the socket handshake so no separate auth flow is needed
 - **Single binary deployment** - Express serves the React build as static files, so the same Node process handles both the API and the frontend
+- **The current implementation of Socket.io scales to one instance only** - the current setup works on single-instance deployments (like the current Render free tier). Scaling to multiple instances will break real-time notifications because Socket.io events are only broadcast within the same process. We'll likely need to add a `@socket.io/redis-adapter` so all instances share a Redis pub/sub channel. Render does not support sticky sessions, so the adapter is the easier path forward.
+
+## Features I'm looking to work on next
+
+**Email/SMS Reminders & Notifications**
+Sending appointment confirmation emails and pre-appointment reminders (24h and 1h before) via Nodemailer with a Gmail app password: no domain ownership or paid email service required. The reminder jobs would run as scheduled tasks on the backend, querying MongoDB for upcoming appointments and dispatching notifications to the patient's registered email.
+
+**LLM-powered Symptom Checker & Appointment Insights**
+Two complementary integrations using LLMs:
+- A symptom checker chatbot where patients describe what they're experiencing and the model recommends the appropriate specialization, pre-filling the booking form to reduce friction
+- An analytics layer for admins and staff that can answer natural-language questions over appointment data like identifying peak booking times, which specializations are most in demand, or flagging unusual cancellation patterns
 
 ---
 
